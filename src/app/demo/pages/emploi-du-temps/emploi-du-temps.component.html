@@ -1,0 +1,56 @@
+<div class="card">
+  <div class="emploi-du-temps-container">
+    <!-- Dropdowns for selecting class and semester -->
+    <div class="selection-container">
+      <select id="classe" [(ngModel)]="selectedClasse" (change)="loadEmploiDuTemps()">
+        <option value="">Classe</option>
+        <option *ngFor="let classe of classes" [value]="classe.id">{{ classe.nomClasse }}</option>
+      </select>
+
+      <select id="semestre" [(ngModel)]="selectedSemestre" (change)="loadEmploiDuTemps()">
+        <option value="">Semestre</option>
+        <option *ngFor="let semestre of semestres" [value]="semestre.id">{{ semestre.nomSemestre }}</option>
+      </select>
+    </div>
+
+    <!-- Table displaying the timetable -->
+    <table class="timetable">
+      <thead>
+        <tr>
+          <th>Heure</th>
+          <th *ngFor="let jour of jours">{{ jour }}</th>
+        </tr>
+      </thead>
+      <tbody *ngIf="emploiDuTemps.length > 0; else noData">
+        <tr *ngFor="let slot of emploiDuTemps">
+          <td>{{ slot.time }}</td>
+          <td *ngFor="let selection of slot.selections">
+            <div class="selection-detail">
+              <select [(ngModel)]="selection.matiere">
+                <option [ngValue]="null">Matière</option>
+                <option *ngFor="let matiere of matieres" [ngValue]="matiere">{{ matiere.nomMatiere }}</option>
+              </select>
+              <br>
+              <select [(ngModel)]="selection.salle">
+                <option [ngValue]="null">Salle</option>
+                <option *ngFor="let salle of salles" [ngValue]="salle">{{ salle.nomSalle }}</option>
+              </select>
+              <br>
+              <select [(ngModel)]="selection.enseignant">
+                <option [ngValue]="null">Enseignant</option>
+                <option *ngFor="let enseignant of enseignants" [ngValue]="enseignant">{{ enseignant.name }}</option>
+              </select>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+      <ng-template #noData>
+        <tr><td colspan="6">Aucune donnée d'emploi du temps disponible.</td></tr>
+      </ng-template>
+      
+    </table>
+
+    <!-- Button to validate and save the timetable -->
+    <button (click)="saveEmploiDuTemps()">Valider l'emploi du temps</button>
+  </div>
+</div>

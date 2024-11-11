@@ -1,0 +1,89 @@
+<div class="container mt-4">
+  <div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <h3>Liste des Spécialités</h3>
+      <!-- Bouton sans l'icône + pour afficher le formulaire d'ajout -->
+      <button class="btn btn-success" (click)="openModal('add')">
+        <i class="fas fa-plus"></i> <!-- Icône + -->
+      </button>
+    </div>
+
+
+
+    <div class="card-body">
+      <ul class="list-group">
+        <!-- Boucle pour afficher la liste des spécialités -->
+        <li *ngFor="let specialite of specialites" class="list-group-item d-flex justify-content-between align-items-center">
+          <span>{{ specialite.nomSpecialite }} - {{ specialite.cycle }}</span>
+
+          <span>
+            <!-- Icône d'édition -->
+            <i class="fas fa-edit text-primary me-3" (click)="openModal('edit', specialite)"></i>
+            <!-- Icône de suppression -->
+            <i class="fas fa-trash-alt text-danger" (click)="confirmDelete(specialite)"></i>
+          </span>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Modal pour ajouter/modifier une spécialité -->
+  <div class="modal fade" id="specialiteModal" tabindex="-1" aria-labelledby="specialiteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="specialiteModalLabel">{{ modalTitle }}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form (ngSubmit)="submitForm()" #specialiteForm="ngForm">
+            <!-- Champ de saisie du nom de la spécialité -->
+            <div class="form-group mb-3">
+              <label for="nomSpecialite">Nom de la spécialité</label>
+              <input
+                type="text"
+                id="nomSpecialite"
+                name="nomSpecialite"
+                [(ngModel)]="specialite.nomSpecialite"
+                class="form-control"
+                placeholder="Nom de la spécialité"
+                required
+                #nomSpecialite="ngModel"
+              />
+              <div *ngIf="nomSpecialite.invalid && nomSpecialite.touched" class="alert alert-danger mt-2 p-1">
+                <small>Le nom de la spécialité est requis.</small>
+              </div>
+            </div>
+
+            <!-- Champ de sélection pour le cycle (Licence ou Master) -->
+            <div class="form-group mb-3">
+              <label for="cycle">Cycle</label>
+              <select
+                id="cycle"
+                [(ngModel)]="specialite.cycle"
+                name="cycle"
+                required
+                #cycle="ngModel"
+                class="form-control"
+              >
+                <option value="" disabled selected>Sélectionnez un cycle</option>
+                <option value="Licence">Licence</option>
+                <option value="Master">Master</option>
+              </select>
+              <div *ngIf="cycle.invalid && cycle.touched" class="alert alert-danger mt-2 p-1">
+                <small>Le cycle est requis.</small>
+              </div>
+            </div>
+
+            <!-- Bouton de soumission -->
+            <div class="d-grid gap-2">
+              <button type="submit" [disabled]="specialiteForm.invalid" class="btn btn-primary">
+                {{ modalButtonText }}
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

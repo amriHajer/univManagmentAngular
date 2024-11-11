@@ -1,0 +1,135 @@
+<div class="container mt-4">
+  <div class="card">
+    <div class="card-header">
+      <h3>Ajouter un Module</h3>
+    </div>
+
+    <div class="card-body">
+      <form (ngSubmit)="submitForm()" #moduleForm="ngForm">
+        <!-- Champ pour le nom du module -->
+        <div class="form-group mb-3">
+          <label for="nomModule">Nom du Module</label>
+          <input
+              type="text"
+              id="nomModule"
+              name="nomModule"
+              [(ngModel)]="module.nomModule"
+              class="form-control"
+              required
+          />
+        </div>
+
+        <!-- Liste déroulante pour les spécialités -->
+        <div class="form-group mb-3">
+          <label for="specialite">Spécialité</label>
+          <select
+            id="specialite"
+            name="specialite"
+            [(ngModel)]="module.specialite"
+            class="form-control"
+            required
+            (change)="onSpecialiteChange()"
+          >
+            <option *ngFor="let specialite of specialites" [ngValue]="specialite">
+              {{ specialite.nomSpecialite }}
+            </option>
+          </select>
+        </div>
+
+        <!-- Sélection du semestre -->
+        <div class="form-group mb-3">
+          <label for="semestre">Semestre</label>
+          <select
+            id="semestre"
+            name="semestre"
+            [(ngModel)]="module.semestre"
+            class="form-control"
+            required
+          >
+            <option *ngFor="let semestre of semestres" [ngValue]="semestre">
+              {{ semestre.nomSemestre }}
+            </option>
+          </select>
+        </div>
+
+        <!-- Sélection du niveau -->
+        <div class="form-group mb-3">
+          <label for="niveau">Niveau</label>
+          <select
+            id="niveau"
+            name="niveau"
+            [(ngModel)]="module.niveau"
+            class="form-control"
+            required
+          >
+            <option *ngFor="let niveau of niveaux" [ngValue]="niveau">
+              {{ niveau.nomNiveau }}
+            </option>
+          </select>
+        </div>
+
+        <!-- Sélection des matières et ajout des détails -->
+        <div class="form-group mb-3">
+          <label for="matiere">Matières de Module</label>
+          <select
+            id="matiere"
+            name="matiere"
+            [(ngModel)]="selectedMatiere"
+            class="form-control"
+            required
+            (change)="onMatiereChange()"
+          >
+            <option *ngFor="let matiere of matieres" [ngValue]="matiere">
+              {{ matiere.nomMatiere }}
+            </option>
+          </select>
+        </div>
+
+        <!-- Détails pour la matière sélectionnée -->
+        <div *ngIf="selectedMatiere">
+          <div class="form-group mb-3">
+            <label for="coefficient">Coefficient</label>
+            <input
+              type="number"
+              id="coefficient"
+              name="coefficient"
+              [(ngModel)]="matiereDetails.coefficient"
+              class="form-control"
+              required
+            />
+          </div>
+
+          <div class="form-group mb-3">
+            <label for="volumeHoraire">Volume Horaire</label>
+            <input
+              type="number"
+              id="volumeHoraire"
+              name="volumeHoraire"
+              [(ngModel)]="matiereDetails.volumeHoraire"
+              class="form-control"
+              required
+            />
+          </div>
+
+          <button type="button" class="btn btn-success" (click)="ajouterMatiere()">Ajouter la matière</button>
+        </div>
+
+        <!-- Liste des matières sélectionnées avec leurs détails -->
+        <div *ngIf="matieresSelectionnees.length > 0">
+          <h5 class="mt-4">Matières de module :</h5>
+          <ul class="list-group">
+            <li *ngFor="let matiere of matieresSelectionnees" class="list-group-item">
+              Matière ID: {{ matiere.matiere.id }} (Coefficient: {{ matiere.coefficient }}, Volume horaire: {{ matiere.volumeHoraire }})
+              <button class="btn btn-danger btn-sm float-end" (click)="retirerMatiere(matiere)">Supprimer</button>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Bouton pour soumettre le module avec les matières sélectionnées -->
+        <div class="d-grid gap-2 mt-3">
+          <button type="submit" class="btn btn-primary">Ajouter le module</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

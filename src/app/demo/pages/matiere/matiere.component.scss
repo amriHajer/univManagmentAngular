@@ -1,0 +1,28 @@
+.form_wrapper {
+    padding: 20px;
+  }
+  
+  .form_container {
+    background-color: #f9f9f9;  /* Pour ajouter un fond si nécessaire */
+    padding: 20px;
+    border-radius: 10px;  /* Ajoute des coins arrondis à la carte */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);  /* Effet d'ombre légère */
+  }
+  
+  .title_container {
+    margin-bottom: 20px;  /* Espace entre le titre et le formulaire */
+    text-align: center;
+  }
+  
+  .input_field {
+    margin-bottom: 15px;  /* Espace entre chaque champ d'entrée */
+  }
+  
+
+  
+  .button {
+    margin-top: 15px;  /* Espace avant le bouton */
+    display: block;
+    width: 100%;
+    padding: 10px
+  }  

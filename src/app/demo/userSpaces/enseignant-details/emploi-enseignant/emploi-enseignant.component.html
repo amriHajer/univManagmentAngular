@@ -1,0 +1,31 @@
+<div *ngIf="seances.length > 0; else noSeances">
+    <h2>Emploi du temps de l'enseignant</h2>
+    <table class="table-auto w-full">
+      <thead>
+        <tr>
+          <th class="px-4 py-2">Jour</th>
+          <th class="px-4 py-2">Début</th>
+          <th class="px-4 py-2">Fin</th>
+          <th class="px-4 py-2">Matière</th>
+          <th class="px-4 py-2">Classe</th>
+          <th class="px-4 py-2">Salle</th>
+          <th class="px-4 py-2">Semestre</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let seance of seances">
+          <td class="border px-4 py-2">{{ seance.jourSeance }}</td>
+          <td class="border px-4 py-2">{{ seance.debutSeance }}</td>
+          <td class="border px-4 py-2">{{ seance.finSeance }}</td>
+          <td class="border px-4 py-2">{{ seance.matiere }}</td>
+          <td class="border px-4 py-2">{{ seance.classe }}</td>
+          <td class="border px-4 py-2">{{ seance.salle }}</td>
+          <td class="border px-4 py-2">{{ seance.semestre }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <ng-template #noSeances>
+    <p>Aucune séance trouvée pour cet enseignant.</p>
+  </ng-template>
+  

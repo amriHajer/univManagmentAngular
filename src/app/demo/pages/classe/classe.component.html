@@ -1,0 +1,67 @@
+<div class="container mt-4">
+    <div class="card">
+      <div class="card-header">
+        <h3>Créer une Nouvelle Classe</h3>
+      </div>
+      <div class="card-body">
+        <form (ngSubmit)="createClass()">
+          <div class="mb-3">
+            <label for="nomClasse" class="form-label">Nom de la Classe</label>
+            <input
+              type="text"
+              class="form-control"
+              id="nomClasse"
+              [(ngModel)]="newClasse.nomClasse"
+              name="nomClasse"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="anneeUniversitaire" class="form-label">Année Universitaire</label>
+            <select
+              class="form-select"
+              id="anneeUniversitaire"
+              [(ngModel)]="newClasse.anneeUniversitaire.id"
+              name="anneeUniversitaire"
+              required
+            >
+              <option *ngFor="let annee of anneesUniversitaires" [value]="annee.id">
+                {{ annee.nomAnnee }}
+              </option>
+            </select>
+          </div>
+          
+          <div class="mb-3">
+            <label for="specialite" class="form-label">Spécialité</label>
+            <select
+              class="form-select"
+              id="specialite"
+              [(ngModel)]="newClasse.specialite.id"
+              name="specialite"
+              required
+            >
+              <option *ngFor="let specialite of specialites" [value]="specialite.id">
+                {{ specialite.nomSpecialite }}
+              </option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="niveau" class="form-label">Niveau</label>
+            <select
+              class="form-select"
+              id="niveau"
+              [(ngModel)]="newClasse.niveau.id"
+              name="niveau"
+              required
+            >
+              <option *ngFor="let niveau of niveaux" [value]="niveau.id">
+                {{ niveau.nomNiveau }}
+              </option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary">Créer Classe</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  

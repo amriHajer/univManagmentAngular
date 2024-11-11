@@ -1,0 +1,55 @@
+<p>classe-list works!</p>
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h3>Liste des Classes</h3>
+            <div class="input-group">
+                <!-- Filtre Spécialité -->
+                <select class="form-select me-2" [(ngModel)]="selectedSpecialite" (change)="filterClasses()">
+                    <option value="">Spécialité</option>
+                    <option *ngFor="let specialite of specialites" [value]="specialite.id">
+                        {{ specialite.nomSpecialite }}
+                    </option>
+                </select>
+
+                <!-- Filtre Niveau -->
+                <select class="form-select me-2" [(ngModel)]="selectedNiveau" (change)="filterClasses()">
+                    <option value="">Niveau</option>
+                    <option *ngFor="let niveau of niveaux" [value]="niveau.id">
+                        {{ niveau.nomNiveau }}
+                    </option>
+                </select>
+
+                <!-- Zone de recherche pour le nom de la classe -->
+                <input type="text" class="form-control" placeholder="Rechercher par nom de classe"
+                       [(ngModel)]="searchNomClasse" (input)="searchByNomClasse()"/>
+
+                <!-- Bouton pour ajouter un classe -->
+                <button class="btn btn-success ms-3" [routerLink]="['/classe']">
+                    <i class="fas fa-plus"></i> Ajouter Classe
+                </button>
+            </div>
+        </div>
+
+        <!-- Liste des classes -->
+        <div class="card-body">
+            <ul class="list-group">
+                <!-- Loop to display the list of classes -->
+                <li *ngFor="let classe of filteredClasses" class="list-group-item d-flex justify-content-between align-items-center">
+                    <!-- Class name -->
+                    <span>{{ classe.nomClasse }}</span>
+        
+                    <!-- Edit and Delete Icons -->
+                    <span>
+                        <!-- Edit icon linking to class details -->
+                        <i class="fas fa-edit text-primary me-3" [routerLink]="['/classeDetail', classe.id]"></i>
+                        <!-- Delete icon with click event -->
+                        <i class="fas fa-trash-alt text-danger" (click)="confirmDelete(classe)"></i>
+                    </span>
+                </li>
+            </ul>
+        </div>
+        
+        
+    </div>
+</div>

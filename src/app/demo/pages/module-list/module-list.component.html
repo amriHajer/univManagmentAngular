@@ -1,0 +1,70 @@
+<div class="container mt-4">
+    <div class="card">
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <h3>Liste des Modules</h3>
+        <div class="input-group">
+          <!-- Filtre Spécialité -->
+          <select class="form-select me-2" [(ngModel)]="selectedSpecialite" (change)="filterModules()">
+            <option value="">Spécialité</option>
+            <option *ngFor="let specialite of specialites" [value]="specialite.id">
+              {{ specialite.nomSpecialite }}
+            </option>
+          </select>
+          <!-- Filtre Niveau -->
+          <select class="form-select me-2" [(ngModel)]="selectedNiveau" (change)="filterModules()">
+            <option value="">Niveau</option>
+            <option *ngFor="let niveau of niveaux" [value]="niveau.id">
+              {{ niveau.nomNiveau }}
+            </option>
+          </select>
+          <!-- Filtre Semestre -->
+          <select class="form-select" [(ngModel)]="selectedSemestre" (change)="filterModules()">
+            <option value="">Semestre</option>
+            <option *ngFor="let semestre of semestres" [value]="semestre.id">
+              {{ semestre.nomSemestre }}
+            </option>
+          </select>
+          <button class="btn btn-success ms-3" [routerLink]="['/module']">
+            <i class="fas fa-plus"></i> Ajouter Module
+        </button>
+        </div>
+      </div>
+  
+      <div class="card-body">
+        <div class="list-group">
+          <!-- Boucle pour afficher les modules filtrés -->
+          <div *ngFor="let module of filteredModules" class="list-group-item">
+            <div class="row">
+              <!-- Colonne pour le nom du module -->
+              <div class="col-md-3">
+                <strong>{{ module.nomModule }}</strong>
+              </div>
+              <!-- Colonne pour les matières associées -->
+              <div class="col-md-4">
+                <ul class="list-unstyled">
+                  <li *ngFor="let matiere of module.matiereModules">
+                    <span>{{ matiere.matiere.nomMatiere }}</span>
+                  </li>
+                </ul>
+              </div>
+              <!-- Colonne pour le coefficient et le volume horaire -->
+              <div class="col-md-3">
+                <ul class="list-unstyled">
+                  <li *ngFor="let matiere of module.matiereModules">
+                    <span>Coefficient: {{ matiere.coefficient }}</span> - 
+                    <span>Volume Horaire: {{ matiere.volumeHoraire }}</span>
+                  </li>
+                </ul>
+              </div>
+              <!-- Colonne pour les actions -->
+              <div class="col-md-2 text-end">
+                <i class="fas fa-edit text-primary me-3 cursor-pointer" (click)="openModal('edit', module)"></i>
+                <i class="fas fa-trash-alt text-danger cursor-pointer" (click)="confirmDelete(module)"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

@@ -1,0 +1,88 @@
+<div class="container mt-4">
+  <div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <h3>Liste des Salles</h3>
+      <!-- Bouton + pour afficher le formulaire d'ajout -->
+      <button class="btn btn-success" (click)="openModal('add')">
+        <i class="fas fa-plus"></i> <!-- Icône + -->
+      </button>
+    </div>
+
+    <div class="card-body">
+      <ul class="list-group">
+        <!-- Boucle pour afficher la liste des salles -->
+        <li *ngFor="let salle of salles" class="list-group-item d-flex justify-content-between align-items-center">
+          <span>{{ salle.nomSalle }} - {{ salle.typeSalle }}</span>
+
+          <span>
+            <!-- Icône d'édition -->
+            <i class="fas fa-edit text-primary me-3" (click)="openModal('edit', salle)"></i>
+            <!-- Icône de suppression -->
+            <i class="fas fa-trash-alt text-danger" (click)="confirmDelete(salle)"></i>
+          </span>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Modal pour ajouter/modifier une salle -->
+  <div class="modal fade" id="salleModal" tabindex="-1" aria-labelledby="salleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="salleModalLabel">{{ modalTitle }}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form (ngSubmit)="submitForm()" #salleForm="ngForm">
+            <!-- Champ de saisie du nom de la salle -->
+            <div class="form-group mb-3">
+              <label for="nomSalle">Nom de la salle</label>
+              <input
+                type="text"
+                id="nomSalle"
+                name="nomSalle"
+                [(ngModel)]="salle.nomSalle"
+                class="form-control"
+                placeholder="Nom de la salle"
+                required
+                #nomSalle="ngModel"
+              />
+              <div *ngIf="nomSalle.invalid && nomSalle.touched" class="alert alert-danger mt-2 p-1">
+                <small>Le nom de la salle est requis.</small>
+              </div>
+            </div>
+
+            <!-- Champ de sélection du type de salle -->
+            <div class="form-group mb-3">
+              <label for="typeSalle">Type de salle</label>
+              <select
+                id="typeSalle"
+                name="typeSalle"
+                [(ngModel)]="salle.typeSalle"
+                class="form-control"
+                required
+                #typeSalle="ngModel"
+              >
+                <option value="" disabled selected>Sélectionnez un type</option>
+                <option value="cours">Salle de cours</option>
+                <option value="tp">Salle de TP</option>
+                <option value="amphi">Amphithéâtre</option>
+              </select>
+              <div *ngIf="typeSalle.invalid && typeSalle.touched" class="alert alert-danger mt-2 p-1">
+                <small>Le type de salle est requis.</small>
+              </div>
+            </div>
+
+            <!-- Bouton de soumission -->
+            <div class="d-grid gap-2">
+              <button type="submit" [disabled]="salleForm.invalid" class="btn btn-primary">
+                {{ modalButtonText }}
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

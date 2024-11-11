@@ -1,0 +1,65 @@
+<div class="container mt-4">
+  <div class="card">
+    <div class="card-header">
+      <h3>Ajouter un Enseignant</h3>
+    </div>
+
+    <div class="card-body">
+      <form (ngSubmit)="submitForm()" #enseignantForm="ngForm">
+        <!-- Nom de l'enseignant -->
+        <div class="form-group mb-3">
+          <label for="nom">Nom</label>
+          <input type="text" id="nom" name="nom" [(ngModel)]="formData.name" class="form-control" required />
+        </div>
+
+        <!-- Email de l'enseignant -->
+        <div class="form-group mb-3">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" [(ngModel)]="formData.email" class="form-control" required />
+        </div>
+
+        <!-- Département de l'enseignant -->
+        <div class="form-group mb-3">
+          <label for="departement">Département</label>
+          <input type="text" id="departement" name="departement" [(ngModel)]="formData.departement" class="form-control" required />
+        </div>
+
+        <!-- Image de l'enseignant -->
+        <div class="form-group mb-3">
+          <label for="imageUrl">Image</label>
+          <input type="file" id="imageUrl" (change)="onFileSelected($event)" class="form-control" />
+        </div>
+
+        <!-- Mot de passe de l'enseignant -->
+        <div class="form-group mb-3">
+          <label for="password">Mot de passe</label>
+          <input type="password" id="password" name="password" [(ngModel)]="formData.password" class="form-control" required />
+        </div>
+
+        <!-- Sélection des matières -->
+        <div class="form-group mb-3">
+          <label for="matiere">Matières enseignées</label>
+          <select id="matiere" name="matiere" [(ngModel)]="selectedMatiere" class="form-control" (change)="ajouterMatiere()">
+            <option *ngFor="let matiere of matieres" [ngValue]="matiere">{{ matiere.nomMatiere }}</option>
+          </select>
+        </div>
+
+        <!-- Liste des matières sélectionnées -->
+        <div *ngIf="matieresSelectionnees.length > 0">
+          <h5 class="mt-4">Matières sélectionnées :</h5>
+          <ul class="list-group">
+            <li *ngFor="let matiere of matieresSelectionnees" class="list-group-item">
+              {{ matiere.nomMatiere }}
+              <button type="button" class="btn btn-danger btn-sm float-end" (click)="retirerMatiere(matiere)">Supprimer</button>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Bouton de soumission -->
+        <div class="d-grid gap-2 mt-3">
+          <button type="submit" class="btn btn-primary">Ajouter l'enseignant</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

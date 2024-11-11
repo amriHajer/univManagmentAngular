@@ -1,0 +1,60 @@
+<div class="container mt-5">
+  <div class="card shadow-lg">
+    <div class="card-header bg-primary text-white text-center">
+      <h2 class="mb-0">Envoyer un message ou fichier</h2>
+    </div>
+    <div class="card-body">
+      <!-- Formulaire de message -->
+      <form (ngSubmit)="sendMessage()">
+        
+        <!-- Sélectionner une classe -->
+        <div class="mb-4">
+          <label for="classSelect" class="form-label">Sélectionner une classe</label>
+          <select
+            id="classSelect"
+            [(ngModel)]="selectedClass"
+            name="selectedClass"
+            class="form-select"
+            required>
+            <option value="">--- Choisir une classe ---</option>
+            <option *ngFor="let cls of classes" [value]="cls.id">
+              {{ cls.nomClasse }}
+            </option>
+          </select>
+        </div>
+
+        <!-- Zone de texte pour le message -->
+        <div class="mb-4">
+          <label for="message" class="form-label">Message</label>
+          <textarea
+            id="message"
+            [(ngModel)]="message"
+            name="message"
+            rows="4"
+            class="form-control"
+            placeholder="Écrivez votre message ici..."
+            required></textarea>
+        </div>
+
+        <!-- Champ de téléchargement de fichier -->
+        <div class="mb-4">
+          <label for="file" class="form-label">Télécharger un fichier</label>
+          <input 
+            type="file" 
+            id="file" 
+            (change)="onFileChange($event)" 
+            class="form-control" />
+        </div>
+
+        <!-- Bouton d'envoi -->
+        <div class="text-center">
+          <button 
+            type="submit" 
+            class="btn btn-primary btn-lg">
+            <i class="bi bi-send-fill"></i> Envoyer
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

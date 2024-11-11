@@ -1,0 +1,64 @@
+// Variables
+$sidebar-bg-color: #3d5db4;
+$link-hover-color: #cb82ec;
+
+// Sidebar Styles
+.sidebar {
+  width: 16rem;
+  background-color: $sidebar-bg-color;
+  color: white;
+  min-height: 100vh;
+  border-top-right-radius: 1.5rem;
+  border-bottom-right-radius: 1.5rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 16rem; 
+  
+  .sidebar-header {
+    background-color: darken($sidebar-bg-color, 10%);
+    text-align: center;
+    padding: 1rem;
+    border-top-right-radius: 1.5rem;
+  }
+
+  .sidebar-link {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    transition: background-color 0.3s, color 0.3s;
+   
+      color: white;
+      text-decoration: none;
+      padding: 12px;
+      border-radius: 8px;
+      transition: background-color 0.3s;
+    &:hover {
+      background-color: lighten($sidebar-bg-color, 15%);
+      color: $link-hover-color;
+    }
+
+    .icon {
+      width: 1.5rem;
+      height: 1.5rem;
+      margin-right: 0.5rem;
+    }
+  }
+}
+
+// Main Content Styles
+.ml-64 {
+  margin-left: 16rem;
+}
+
+
+.image-logo {
+    width: 100px;  /* Ajuste la largeur à ta convenance */
+    height: 100px; /* Ajuste la hauteur à ta convenance */
+    border-radius: 50%; /* Pour un avatar circulaire */
+    object-fit: cover; /* Pour garder les proportions de l'image */
+  }
+  
+  
