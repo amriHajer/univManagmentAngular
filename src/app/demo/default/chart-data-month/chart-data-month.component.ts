@@ -17,6 +17,7 @@ import {
   ApexTheme,
   ApexTooltip
 } from 'ng-apexcharts';
+import { HttpClient } from '@angular/common/http';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -37,7 +38,8 @@ export type ChartOptions = {
   templateUrl: './chart-data-month.component.html',
   styleUrl: './chart-data-month.component.scss'
 })
-export class ChartDataMonthComponent implements OnInit {
+export class ChartDataMonthComponent  implements OnInit{
+  numberOfEnseignant: number = 0;
   // public props
   @ViewChild('chart') chart!: ChartComponent;
   chartOptions!: Partial<ChartOptions>;
@@ -45,58 +47,23 @@ export class ChartDataMonthComponent implements OnInit {
   btnActive!: string;
 
   // life cycle event
-  ngOnInit() {
-    this.btnActive = 'year';
-    this.chartOptions = {
-      chart: {
-        type: 'line',
-        height: 90,
-        sparkline: {
-          enabled: true
-        }
-      },
-      dataLabels: {
-        enabled: false
-      },
-      colors: ['#FFF'],
-      stroke: {
-        curve: 'smooth',
-        width: 3
-      },
-      series: [
-        {
-          name: 'series1',
-          data: [35, 44, 9, 54, 45, 66, 41, 69]
-        }
-      ],
-      yaxis: {
-        min: 5,
-        max: 95
-      },
-      tooltip: {
-        theme: 'dark',
-        fixed: {
-          enabled: false
-        },
-        x: {
-          show: false
-        },
-        marker: {
-          show: false
-        }
-      }
-    };
+ 
+
+  constructor(private http: HttpClient) {}
+
+  ngOnInit(): void {
+    this.fetchNumberOfEnsignant();
   }
 
-  // public method
-  toggleActive(value: string) {
-    this.btnActive = value;
-    this.chartOptions.series = [
-      {
-        name: 'series1',
-        data: value === 'month' ? [45, 66, 41, 89, 25, 44, 9, 54] : [35, 44, 9, 54, 45, 66, 41, 69]
+  fetchNumberOfEnsignant(): void {
+    this.http.get<number>('http://localhost:8083/public/nbreEnseignant').subscribe({
+      next: (data: number) => {
+        this.numberOfEnseignant= data;
+      },
+      error: (err) => {
+        console.error('Erreur lors de la récupération du nombre d\'enseignants:', err);
       }
-    ];
-    this.amount = value === 'month' ? 108 : 961;
+    });
   }
+
 }

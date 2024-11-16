@@ -10,18 +10,20 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './classe.component.html',
   styleUrl: './classe.component.scss'
 })
-export class ClasseComponent {
-  specialites: any[] = [];
+export class ClasseComponent  {
+
+ specialites: any[] = [];
   niveaux: any[] = [];
   anneesUniversitaires: any[] = [];
-
+  filteredNiveaux: any[] = [];
+  
   newClasse = {
     nomClasse: '',
     anneeUniversitaire: { id: '' },
     niveau: { id: '' },
-    specialite: { id: '' }
+    specialite: { id: '', cycle: '' } // Ensure cycle exists here
   };
-
+  
   private apiUrl = 'http://localhost:8083/public';
 
   constructor(private http: HttpClient) {}
@@ -31,16 +33,19 @@ export class ClasseComponent {
   }
 
   loadData() {
+    // Charger les spécialités
     this.http.get<any[]>(`${this.apiUrl}/specialites`).subscribe(
       data => this.specialites = data,
       error => console.error('Erreur lors du chargement des spécialités', error)
     );
 
+    // Charger les niveaux
     this.http.get<any[]>(`${this.apiUrl}/niveaux`).subscribe(
       data => this.niveaux = data,
       error => console.error('Erreur lors du chargement des niveaux', error)
     );
 
+    // Charger les années universitaires
     this.http.get<any[]>(`${this.apiUrl}/annees-universitaires`).subscribe(
       data => this.anneesUniversitaires = data,
       error => console.error('Erreur lors du chargement des années universitaires', error)
@@ -48,6 +53,12 @@ export class ClasseComponent {
   }
 
   createClass() {
+    if (!this.newClasse.nomClasse || !this.newClasse.anneeUniversitaire.id || 
+        !this.newClasse.niveau.id || !this.newClasse.specialite.id) {
+      alert('Veuillez remplir tous les champs obligatoires.');
+      return;
+    }
+
     this.http.post(`${this.apiUrl}/classes`, this.newClasse).subscribe(
       response => {
         console.log('Classe créée avec succès', response);
@@ -70,7 +81,37 @@ export class ClasseComponent {
       nomClasse: '',
       anneeUniversitaire: { id: '' },
       niveau: { id: '' },
-      specialite: { id: '' }
+      specialite: { id: '', cycle: '' }
     };
+    this.filteredNiveaux = this.niveaux;
   }
+
+  /************************** */
+  onSpecialiteChange() {
+    console.log('Spécialité sélectionnée:', this.newClasse.specialite);
+  
+    if (this.newClasse.specialite) {
+      const cycle = this.newClasse.specialite.cycle?.toLowerCase().trim(); // Corrected variable
+      console.log('Cycle détecté:', cycle);
+  
+      const normalizeCycleName = (cycleName: string) => cycleName.toLowerCase().replace('license', 'licence');
+  
+      if (cycle === 'master') {
+        this.filteredNiveaux = this.niveaux.filter(niveau =>
+          normalizeCycleName(niveau.nomNiveau).includes('master')
+        );
+      } else if (cycle === 'licence') {
+        this.filteredNiveaux = this.niveaux.filter(niveau =>
+          normalizeCycleName(niveau.nomNiveau).includes('licence')
+        );
+      } else {
+        this.filteredNiveaux = [];
+      }
+  
+      console.log('Niveaux filtrés:', this.filteredNiveaux);
+    } else {
+      this.filteredNiveaux = [];
+    }
+  }
+  
 }

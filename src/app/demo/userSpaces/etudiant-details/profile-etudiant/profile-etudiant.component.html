@@ -1,0 +1,10 @@
+<div *ngIf="etudiant" class="profile-container">
+    <img [src]="imageUrl" alt="Photo de profil" class="profile-image" *ngIf="imageUrl" />
+    <h2>{{ etudiant.name }}</h2>
+    <p><strong>Email :</strong> {{ etudiant.email }}</p>
+    <p><strong>CIN :</strong> {{ etudiant.cin }}</p>
+    <p><strong>Téléphone :</strong> {{ etudiant.tel }}</p>
+    <p><strong>Date de Naissance :</strong> {{ etudiant.dateNaissance | date }}</p>
+    <p><strong>Classe :</strong> {{ nomClasse ? nomClasse : 'Non assignée' }}</p>
+  </div>
+  

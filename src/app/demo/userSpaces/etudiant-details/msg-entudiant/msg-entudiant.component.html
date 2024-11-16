@@ -1,0 +1,27 @@
+<div class="container mx-auto p-6">
+    <h2 class="text-2xl font-bold mb-4">Messages pour votre classe</h2>
+  
+    <div *ngIf="messages.length > 0; else noMessages">
+      <div *ngFor="let message of messages" class="bg-gray-100 p-4 mb-4 rounded shadow">
+        <h3 class="text-lg font-semibold">{{ message.contentMsg }}</h3>
+        <p class="text-sm text-gray-600">Envoyé le {{ message.dateEnvoi | date: 'dd/MM/yyyy à HH:mm' }}</p>
+  
+        <div class="mt-2">
+          <strong>Enseignant :</strong> {{ message.user.name }} ({{ message.user.email }})
+        </div>
+  
+        <!-- Afficher le fichier joint s'il existe -->
+        <div *ngIf="message.fileUrl" class="mt-2">
+          <a [href]="'http://localhost:8083/' + message.fileUrl" target="_blank" class="text-blue-600 hover:underline">
+            Voir le fichier joint
+          </a>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Message affiché s'il n'y a pas de messages -->
+    <ng-template #noMessages>
+      <p class="text-gray-500">Aucun message disponible pour votre classe.</p>
+    </ng-template>
+  </div>
+  

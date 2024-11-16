@@ -1,322 +1,166 @@
-<!-- <div class="row">
-  <div class="col-sm-6 mx-auto">
-      <div class="card">
-          <div class="card-header">
-              <h5 align="center">Ajouter un Étudiant</h5>
-          </div>
-          <div class="row clearfix">
-              <div class="col-12">
-                  <form (ngSubmit)="submitForm()" #etudiantForm="ngForm">
-                      <input type="hidden" name="role" [(ngModel)]="formData.role" />
-
-                      <div class="input_field">
-                          <span><i aria-hidden="true" class="fa fa-user"></i></span>
-                          <input
-                              type="text"
-                              name="name"
-                              [(ngModel)]="formData.name"
-                              placeholder="Nom de l'étudiant"
-                              required
-                              #name="ngModel"
-                          />
-                          <div *ngIf="name.invalid && name.touched">
-                              <small>Le nom est requis.</small>
-                          </div>
-                      </div>
-
-                      <div class="input_field">
-                          <span><i aria-hidden="true" class="fa fa-envelope"></i></span>
-                          <input
-                              type="email"
-                              name="email"
-                              [(ngModel)]="formData.email"
-                              placeholder="Email"
-                              required
-                              #email="ngModel"
-                          />
-                          <div *ngIf="email.invalid && email.touched">
-                              <small>L'email est requis.</small>
-                          </div>
-                      </div>
-
-                      <div class="input_field">
-                          <span><i aria-hidden="true" class="fa fa-lock"></i></span>
-                          <input
-                              type="password"
-                              name="password"
-                              [(ngModel)]="formData.password"
-                              placeholder="Mot de passe"
-                              required
-                              #password="ngModel"
-                          />
-                          <div *ngIf="password.invalid && password.touched">
-                              <small>Le mot de passe est requis.</small>
-                          </div>
-                      </div>
-
-                      <div class="input_field">
-                          <span><i aria-hidden="true" class="fa fa-phone"></i></span>
-                          <input
-                              type="text"
-                              name="tel"
-                              [(ngModel)]="formData.tel"
-                              placeholder="Téléphone"
-                              required
-                              #tel="ngModel"
-                          />
-                          <div *ngIf="tel.invalid && tel.touched">
-                              <small>Le téléphone est requis.</small>
-                          </div>
-                      </div>
-
-                      <div class="input_field">
-                          <span><i aria-hidden="true" class="fa fa-id-card"></i></span>
-                          <input
-                              type="text"
-                              name="cin"
-                              [(ngModel)]="formData.cin"
-                              placeholder="CIN"
-                              required
-                              #cin="ngModel"
-                          />
-                          <div *ngIf="cin.invalid && cin.touched">
-                              <small>Le CIN est requis.</small>
-                          </div>
-                      </div>
-
-                      <div class="input_field">
-                          <label for="file" class="form-label">Photo de profil</label>
-                          <input
-                              type="file"
-                              id="file"
-                              name="file"
-                              (change)="onFileSelected($event)"
-                              class="form-control"
-                          />
-                      </div>
-
-                      <div class="input_field">
-                          <label for="dateNaissance">Date de Naissance</label>
-                          <input
-                              type="date"
-                              id="dateNaissance"
-                              [(ngModel)]="formData.dateNaissance"
-                              name="dateNaissance"
-                              required
-                          />
-                          <div *ngIf="etudiantForm.controls['dateNaissance']?.invalid && etudiantForm.controls['dateNaissance']?.touched">
-                              <small>La date de naissance est requise.</small>
-                          </div>
-                      </div>
-
-                      <div class="input_field">
-                          <button
-                              type="submit"
-                              [disabled]="etudiantForm.invalid"
-                              class="btn btn-primary"
-                          >
-                              Ajouter Étudiant
-                          </button>
-                      </div>
-                  </form>
-              </div>
-          </div>
+<div class="container mt-4">
+    <div class="card col-md-8 mx-auto">
+      <div class="card-header">
+        <h3>Ajouter un Etudiant</h3>
       </div>
-  </div>
-</div> -->
+        <div class="card shadow-lg">
+            <div class="card-body p-4">
+                <form (ngSubmit)="submitForm()" #etudiantForm="ngForm">
+                    <input type="hidden" name="role" [(ngModel)]="formData.role" />
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="container mt-3">
-    <h2 class="text-center mb-4">Ajouter un Étudiant</h2>
-
-    <div class="row justify-content-center">
-        <div class="col-sm-8 col-md-6">
-            <div class="card shadow-lg">
-                <div class="card-body p-4">
-                    <form (ngSubmit)="submitForm()" #etudiantForm="ngForm">
-                        <input type="hidden" name="role" [(ngModel)]="formData.role" />
-
-                        <!-- Nom avec icône -->
-                        <div class="form-group mb-3 input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">
-                                    <i class="fas fa-user text-purple"></i> <!-- Icône de l'utilisateur -->
-                                </span>
-                            </div>
-                            <input
-                                type="text"
-                                id="name"
-                                name="name"
-                                [(ngModel)]="formData.name"
-                                class="form-control"
-                                placeholder="Entrez le nom"
-                                required
-                                #name="ngModel"
-                            />
-                            <div *ngIf="name.invalid && name.touched" class="alert alert-danger mt-2 p-1">
-                                <small>Le nom est requis.</small>
-                            </div>
+                    <!-- Nom avec icône -->
+                    <div class="form-group mb-3 input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="fas fa-user text-purple"></i> <!-- Icône de l'utilisateur -->
+                            </span>
                         </div>
-
-                        <!-- Email avec icône -->
-                        <div class="form-group mb-3 input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">
-                                    <i class="fas fa-envelope text-purple"></i> <!-- Icône d'email -->
-                                </span>
-                            </div>
-                            <input
-                                type="email"
-                                id="email"
-                                name="email"
-                                [(ngModel)]="formData.email"
-                                class="form-control"
-                                placeholder="Entrez l'email"
-                                required
-                                #email="ngModel"
-                            />
-                            <div *ngIf="email.invalid && email.touched" class="alert alert-danger mt-2 p-1">
-                                <small>L'email est requis.</small>
-                            </div>
+                        <input
+                            type="text"
+                            id="name"
+                            name="name"
+                            [(ngModel)]="formData.name"
+                            class="form-control"
+                            placeholder="Entrez le nom"
+                            required
+                            #name="ngModel"
+                        />
+                        <div *ngIf="name.invalid && name.touched" class="alert alert-danger mt-2 p-1">
+                            <small>Le nom est requis.</small>
                         </div>
-
-                        <!-- Mot de passe avec icône -->
-                        <div class="form-group mb-3 input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">
-                                    <i class="fas fa-lock text-purple"></i> <!-- Icône de mot de passe -->
-                                </span>
-                            </div>
-                            <input
-                                type="password"
-                                id="password"
-                                name="password"
-                                [(ngModel)]="formData.password"
-                                class="form-control"
-                                placeholder="Entrez le mot de passe"
-                                required
-                                #password="ngModel"
-                            />
-                            <div *ngIf="password.invalid && password.touched" class="alert alert-danger mt-2 p-1">
-                                <small>Le mot de passe est requis.</small>
-                            </div>
+                    </div>
+                    
+                    <!-- Email avec icône -->
+                    <div class="form-group mb-3 input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="fas fa-envelope text-purple"></i> <!-- Icône d'email -->
+                            </span>
                         </div>
-
-                        <!-- Téléphone avec icône -->
-                        <div class="form-group mb-3 input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">
-                                    <i class="fas fa-phone text-purple"></i> <!-- Icône de téléphone -->
-                                </span>
-                            </div>
-                            <input
-                                type="text"
-                                id="tel"
-                                name="tel"
-                                [(ngModel)]="formData.tel"
-                                class="form-control"
-                                placeholder="Entrez le numéro de téléphone"
-                                required
-                                #tel="ngModel"
-                            />
-                            <div *ngIf="tel.invalid && tel.touched" class="alert alert-danger mt-2 p-1">
-                                <small>Le téléphone est requis.</small>
-                            </div>
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            [(ngModel)]="formData.email"
+                            class="form-control"
+                            placeholder="Entrez l'email"
+                            required
+                            #email="ngModel"
+                        />
+                        <div *ngIf="email.invalid && email.touched" class="alert alert-danger mt-2 p-1">
+                            <small>L'email est requis.</small>
                         </div>
+                    </div>
 
-                        <!-- CIN avec icône -->
-                        <div class="form-group mb-3 input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">
-                                    <i class="fas fa-id-card text-purple"></i> <!-- Icône de carte d'identité -->
-                                </span>
-                            </div>
-                            <input
-                                type="text"
-                                id="cin"
-                                name="cin"
-                                [(ngModel)]="formData.cin"
-                                class="form-control"
-                                placeholder="Entrez le CIN"
-                                required
-                                #cin="ngModel"
-                            />
-                            <div *ngIf="cin.invalid && cin.touched" class="alert alert-danger mt-2 p-1">
-                                <small>Le CIN est requis.</small>
-                            </div>
+                    <!-- Mot de passe avec icône -->
+                    <div class="form-group mb-3 input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="fas fa-lock text-purple"></i> <!-- Icône de mot de passe -->
+                            </span>
                         </div>
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            [(ngModel)]="formData.password"
+                            class="form-control"
+                            placeholder="Entrez le mot de passe"
+                            required
+                            #password="ngModel"
+                        />
+                        <div *ngIf="password.invalid && password.touched" class="alert alert-danger mt-2 p-1">
+                            <small>Le mot de passe est requis.</small>
+                        </div>
+                    </div>
 
-                        <!-- Photo de profil avec icône -->
-                        <div class="form-group mb-3 input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">
-                                    <i class="fas fa-camera text-purple"></i> <!-- Icône de photo -->
-                                </span>
-                            </div>
-                            <input
-                                type="file"
-                                id="file"
-                                name="file"
-                                (change)="onFileSelected($event)"
-                                class="form-control"
-                            />
+                    <!-- Téléphone avec icône -->
+                    <div class="form-group mb-3 input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="fas fa-phone text-purple"></i> <!-- Icône de téléphone -->
+                            </span>
                         </div>
+                        <input
+                            type="text"
+                            id="tel"
+                            name="tel"
+                            [(ngModel)]="formData.tel"
+                            class="form-control"
+                            placeholder="Entrez le numéro de téléphone"
+                            required
+                            #tel="ngModel"
+                        />
+                        <div *ngIf="tel.invalid && tel.touched" class="alert alert-danger mt-2 p-1">
+                            <small>Le téléphone est requis.</small>
+                        </div>
+                    </div>
 
-                        <!-- Date de naissance avec icône -->
-                        <div class="form-group mb-4 input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">
-                                    <i class="fas fa-calendar-alt text-purple"></i> <!-- Icône de calendrier -->
-                                </span>
-                            </div>
-                            <input
-                                type="date"
-                                id="dateNaissance"
-                                [(ngModel)]="formData.dateNaissance"
-                                name="dateNaissance"
-                                class="form-control"
-                                required
-                            />
-                            <div *ngIf="etudiantForm.controls['dateNaissance']?.invalid && etudiantForm.controls['dateNaissance']?.touched" class="alert alert-danger mt-2 p-1">
-                                <small>La date de naissance est requise.</small>
-                            </div>
+                    <!-- CIN avec icône -->
+                    <div class="form-group mb-3 input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="fas fa-id-card text-purple"></i> <!-- Icône de carte d'identité -->
+                            </span>
                         </div>
+                        <input
+                            type="text"
+                            id="cin"
+                            name="cin"
+                            [(ngModel)]="formData.cin"
+                            class="form-control"
+                            placeholder="Entrez le CIN"
+                            required
+                            #cin="ngModel"
+                        />
+                        <div *ngIf="cin.invalid && cin.touched" class="alert alert-danger mt-2 p-1">
+                            <small>Le CIN est requis.</small>
+                        </div>
+                    </div>
 
-                        <!-- Submit Button -->
-                        <div class="d-grid gap-2">
-                            <button type="submit" [disabled]="etudiantForm.invalid" class="btn btn-primary btn-block">
-                                Ajouter Étudiant
-                            </button>
+                    <!-- Photo de profil avec icône -->
+                    <div class="form-group mb-3 input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="fas fa-camera text-purple"></i> <!-- Icône de photo -->
+                            </span>
                         </div>
-                    </form>
-                </div>
+                        <input
+                            type="file"
+                            id="file"
+                            name="file"
+                            (change)="onFileSelected($event)"
+                            class="form-control"
+                        />
+                    </div>
+
+                    <!-- Date de naissance avec icône -->
+                    <div class="form-group mb-4 input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="fas fa-calendar-alt text-purple"></i> <!-- Icône de calendrier -->
+                            </span>
+                        </div>
+                        <input
+                            type="date"
+                            id="dateNaissance"
+                            [(ngModel)]="formData.dateNaissance"
+                            name="dateNaissance"
+                            class="form-control"
+                            required
+                        />
+                        <div *ngIf="etudiantForm.controls['dateNaissance']?.invalid && etudiantForm.controls['dateNaissance']?.touched" class="alert alert-danger mt-2 p-1">
+                            <small>La date de naissance est requise.</small>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="d-grid gap-2">
+                        <button type="submit" [disabled]="etudiantForm.invalid" class="btn btn-primary btn-block">
+                            Ajouter Étudiant
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

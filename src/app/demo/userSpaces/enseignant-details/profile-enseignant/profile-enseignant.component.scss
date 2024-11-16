@@ -1,20 +1,52 @@
-.image-logo {
-    width: 150px; /* Largeur de l'image */
-    height: 150px; /* Hauteur de l'image */
-    border-radius: 50%; /* Image circulaire */
-    object-fit: cover; /* Garder les proportions */
-    border: 3px solid #007bff; /* Bordure bleue (optionnel) */
-  }
-  
-  .profile-info h2 {
-    color: #343a40; /* Couleur du texte */
-  }
-  
-  .profile-matieres {
-    margin-top: 30px;
-  }
-  
-  .list-group-item {
-    text-align: center; /* Centrer le texte dans la liste */
-  }
-  
+.profile-container {
+  max-width: 500px;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.profile-image {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 15px;
+}
+
+.profile-matieres {
+  margin-top: 20px;
+  text-align: left; /* Aligner à gauche pour la liste des matières */
+}
+
+.profile-matieres h4 {
+  color: #007bff; /* Titre des matières en bleu */
+}
+
+.list-group {
+  padding-left: 0;
+  list-style: none;
+}
+
+.list-group-item {
+  border: 1px solid #e0e0e0;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  background-color: #f9f9f9;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.list-group-item i {
+  font-size: 1.2rem;
+  color: #007bff;
+  margin-right: 10px;
+}
+
+.list-group-item:hover {
+  background-color: #f1f1f1; /* Légère surbrillance au survol */
+}

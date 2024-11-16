@@ -3,18 +3,19 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
-interface Selection {
-  matiere: any;
-  salle: any;
-  enseignant: any;
+export interface Seance {
   jourSeance: string;
   debutSeance: string;
   finSeance: string;
+  matiere: { id: number };
+  enseignant: { id: number };
+  salle: { id: number };
 }
 
-interface TimeSlot {
-  time: string;
-  selections: Selection[];
+interface EmploiDuTemps {
+  classe: { id: number };
+  semestre: { id: number };
+  seances: Seance[];
 }
 
 @Component({
@@ -31,10 +32,12 @@ export class EmploiDuTempsComponent implements OnInit {
   matieres: any[] = [];
   enseignants: any[] = [];
 
-  selectedClasse: string = '';
-  selectedSemestre: string = '';
-  emploiDuTemps: TimeSlot[] = [];
+  selectedClasse: number = 0;
+  selectedSemestre: number = 0;
+  //emploiDuTemps: TimeSlot[] = [];
+  emploiDuTemps: any[] = [];
 
+  // Jours et horaires pour l'emploi du temps
   public jours: string[] = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi'];
   public horaires: { debut: string; fin: string }[] = [
     { debut: '08:00', fin: '10:00' },
@@ -56,115 +59,89 @@ export class EmploiDuTempsComponent implements OnInit {
     this.initializeEmploiDuTemps();
   }
 
+  // Charger les semestres depuis l'API
   loadSemestres() {
-    this.http.get<any[]>(`${this.apiUrl}/semestres`).subscribe(data => {
-      this.semestres = data;
+    this.http.get<any[]>(`${this.apiUrl}/semestres`).subscribe({
+      next: (data) => this.semestres = data,
+      error: (err) => console.error('Erreur lors du chargement des semestres', err)
     });
   }
 
+  // Charger les classes depuis l'API
   loadClasses() {
-    this.http.get<any[]>(`${this.apiUrl}/classes`).subscribe(data => {
-      this.classes = data;
+    this.http.get<any[]>(`${this.apiUrl}/classes`).subscribe({
+      next: (data) => this.classes = data,
+      error: (err) => console.error('Erreur lors du chargement des classes', err)
     });
   }
 
+  // Charger les matières depuis l'API
   getMatieres() {
-    this.http.get<any[]>(`${this.apiUrl}/matieres`).subscribe(
-      data => {
-        this.matieres = data;
-      },
-      error => {
-        console.error('Erreur lors de la récupération des matières', error);
-      }
-    );
+    this.http.get<any[]>(`${this.apiUrl}/matieres`).subscribe({
+      next: (data) => this.matieres = data,
+      error: (err) => console.error('Erreur lors de la récupération des matières', err)
+    });
   }
 
+  // Charger les salles depuis l'API
   getSalles() {
-    this.http.get<any[]>(`${this.apiUrl}/salles`).subscribe(data => {
-      this.salles = data;
+    this.http.get<any[]>(`${this.apiUrl}/salles`).subscribe({
+      next: (data) => this.salles = data,
+      error: (err) => console.error('Erreur lors de la récupération des salles', err)
     });
   }
 
+  // Charger les enseignants depuis l'API
   getEnseignants() {
-    this.http.get<any[]>(`${this.apiUrl}/listEnseignantUsers`).subscribe(data => {
-      this.enseignants = data;
+    this.http.get<any[]>(`${this.apiUrl}/listEnseignantUsers`).subscribe({
+      next: (data) => this.enseignants = data,
+      error: (err) => console.error('Erreur lors de la récupération des enseignants', err)
     });
   }
 
+  // Initialisation de l'emploi du temps
   initializeEmploiDuTemps() {
     this.emploiDuTemps = this.horaires.map(({ debut, fin }) => ({
       time: `${debut} - ${fin}`,
       selections: this.jours.map(jour => ({
-        jourSeance: jour,  // Par exemple: "lundi", "mardi", etc.
+        jourSeance: jour,
         debutSeance: debut,
         finSeance: fin,
-        matiere: null,  // ID de la matière, à remplir lors de la sélection
-        salle: null,    // ID de la salle, à remplir lors de la sélection
-        enseignant: null // ID de l'enseignant, à remplir lors de la sélection
+        matiere: null,
+        enseignant: null,
+        salle: null
       }))
     }));
   }
-  
 
-  loadEmploiDuTemps() {
-    if (!this.selectedSemestre || !this.selectedClasse) {
-      return;
-    }
-  
-    console.log('Chargement de l\'emploi du temps pour le semestre :', this.selectedSemestre, 'et la classe :', this.selectedClasse);
-  
-    this.http.get<any[]>(`${this.apiUrl}/emploiDuTemps?classe=${this.selectedClasse}&semestre=${this.selectedSemestre}`).subscribe(
-      data => {
-        if (Array.isArray(data) && data.length > 0) {
-          console.log('Emploi du temps récupéré:', data);
-          this.emploiDuTemps = data.map((slot: any) => ({
-            time: slot.time,
-            selections: slot.selections ? slot.selections.map((selection: any) => ({
-              matiere: selection.matiere || null,
-              salle: selection.salle || null,
-              enseignant: selection.enseignant || null
-            })) : []  // Assurez-vous que 'selections' est défini avant de mapper
-          }));
-        } else {
-          console.log('Aucune donnée d\'emploi du temps trouvée.');
-          this.initializeEmploiDuTemps();  // Reset si aucune donnée
-        }
-      },
-      error => {
-        console.error('Erreur lors du chargement de l\'emploi du temps:', error);
-        this.initializeEmploiDuTemps();  // Reset en cas d'erreur
-      }
-    );
-  }
-  
-  
-
-  
-  
-  
+  // Sauvegarder l'emploi du temps
   saveEmploiDuTemps() {
-    const emploiDuTempsData = {
-      semestre: { id: this.selectedSemestre },
+    const emploiDuTempsData: EmploiDuTemps = {
       classe: { id: this.selectedClasse },
+      semestre: { id: this.selectedSemestre },
       seances: this.emploiDuTemps.flatMap((slot: any) =>
-        slot.selections.map((selection: any) => ({
-          jourSeance: this.jours[slot.selections.indexOf(selection)],
-          debutSeance: slot.time.split(' - ')[0],
-          finSeance: slot.time.split(' - ')[1],
-          matiere: { id: selection.matiere?.id },
-          enseignant: { id: selection.enseignant?.id },
-          salle: { id: selection.salle?.id }
-        }))
+        slot.selections
+          .filter((selection: any) => selection.matiere && selection.enseignant && selection.salle)
+          .map((selection: any) => ({
+            jourSeance: selection.jourSeance,
+            debutSeance: selection.debutSeance,
+            finSeance: selection.finSeance,
+            matiere: { id: selection.matiere.id },
+            enseignant: { id: selection.enseignant.id },
+            salle: { id: selection.salle.id }
+          }))
       )
     };
 
-    this.http.post(`${this.apiUrl}/emploiDuTemps`, emploiDuTempsData).subscribe(
-      (response) => {
+    this.http.post(`${this.apiUrl}/emploiDuTemps`, emploiDuTempsData).subscribe({
+      next: (response) => {
         console.log('Emploi du temps créé avec succès!', response);
+        alert('Emploi du temps enregistré avec succès');
       },
-      (error) => {
-        console.error('Erreur lors de la création de l\'emploi du temps', error);
+      error: (err) => {
+        console.error('Erreur lors de la création de l\'emploi du temps', err);
+        alert('Erreur lors de la sauvegarde');
       }
-    );
+    });
   }
 }

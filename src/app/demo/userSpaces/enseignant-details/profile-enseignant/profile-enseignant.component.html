@@ -1,29 +1,21 @@
-<div class="card mx-auto mt-5 shadow-lg" style="max-width: 500px;">
-    <div class="card-header bg-primary text-white text-center">
-      <h3>Profil Enseignant</h3>
-    </div>
-    <div class="card-body">
-      <div class="text-center">
-        <!-- Affichage de l'image de profil -->
-        <img *ngIf="imageUrl" [src]="imageUrl" alt="User Image" class="rounded-circle mb-4 border border-secondary" width="150" height="150" />
+<div *ngIf="enseignant" class="profile-container">
+  <!-- Affichage de l'image de profil -->
+  <img [src]="imageUrl" alt="Photo de profil" class="profile-image" *ngIf="imageUrl" />
   
-        <h2 class="text-primary">{{ enseignant?.name }}</h2>
-       
-        <p><strong>Email :</strong> {{ enseignant?.email }}</p>
-        <p><strong>Département :</strong> {{ enseignant?.departement }}</p>
-      </div>
+  <!-- Informations de l'enseignant -->
+  <h2>{{ enseignant?.name }}</h2>
+  <p><strong>Email :</strong> {{ enseignant?.email }}</p>
+  <p><strong>Département :</strong> {{ enseignant?.departement }}</p>
+
+  <hr />
   
-      <hr />
-  
-      <div class="mt-4 d-flex align-items-center">
-        <h4 class="text-secondary me-3">Matières enseignées :</h4>
-        <ul class="list-group list-group-horizontal list-group-flush d-flex flex-wrap mb-0">
-          <li *ngFor="let matiere of enseignant?.matieresEnseigne" class="list-group-item border-0">
-            <i class="bi bi-book me-2"></i>{{ matiere.nomMatiere }}
-          </li>
-        </ul>
-      </div>
-      
-    </div>
+  <!-- Matières enseignées -->
+  <div class="profile-matieres">
+    <h4 class="text-secondary">Matières enseignées :</h4>
+    <ul class="list-group">
+      <li *ngFor="let matiere of enseignant?.matieresEnseigne" class="list-group-item">
+        <i class="bi bi-book me-2"></i>{{ matiere.nomMatiere }}
+      </li>
+    </ul>
   </div>
-  
+</div>

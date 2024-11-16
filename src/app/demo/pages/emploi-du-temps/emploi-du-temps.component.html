@@ -1,56 +1,95 @@
-<div class="card">
-  <div class="emploi-du-temps-container">
-    <!-- Dropdowns for selecting class and semester -->
-    <div class="selection-container">
-      <select id="classe" [(ngModel)]="selectedClasse" (change)="loadEmploiDuTemps()">
-        <option value="">Classe</option>
-        <option *ngFor="let classe of classes" [value]="classe.id">{{ classe.nomClasse }}</option>
-      </select>
+<div class="container mx-auto p-4">
+  <h2 class="text-2xl font-bold mb-6">Gestion de l'Emploi du Temps</h2>
 
-      <select id="semestre" [(ngModel)]="selectedSemestre" (change)="loadEmploiDuTemps()">
-        <option value="">Semestre</option>
-        <option *ngFor="let semestre of semestres" [value]="semestre.id">{{ semestre.nomSemestre }}</option>
+  <!-- Sélection de la classe et du semestre -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+    <div>
+      <label for="classe" class="block font-medium mb-2">Classe :</label>
+      <select
+        id="classe"
+        [(ngModel)]="selectedClasse"
+        class="w-full p-2 border rounded"
+      >
+        <option value="0" disabled>-- Sélectionner une classe --</option>
+        <option *ngFor="let classe of classes" [value]="classe.id">
+          {{ classe.nomClasse }}
+        </option>
       </select>
     </div>
 
-    <!-- Table displaying the timetable -->
-    <table class="timetable">
+    <div>
+      <label for="semestre" class="block font-medium mb-2">Semestre :</label>
+      <select
+        id="semestre"
+        [(ngModel)]="selectedSemestre"
+        class="w-full p-2 border rounded"
+      >
+        <option value="0" disabled>-- Sélectionner un semestre --</option>
+        <option *ngFor="let semestre of semestres" [value]="semestre.id">
+          {{ semestre.nomSemestre }}
+        </option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Tableau de l'emploi du temps -->
+  <div class="overflow-x-auto">
+    <table class="min-w-full bg-white border border-gray-200">
       <thead>
         <tr>
-          <th>Heure</th>
-          <th *ngFor="let jour of jours">{{ jour }}</th>
+          <th class="px-4 py-2 border">Horaires</th>
+          <th *ngFor="let jour of jours" class="px-4 py-2 border">{{ jour }}</th>
         </tr>
       </thead>
-      <tbody *ngIf="emploiDuTemps.length > 0; else noData">
+      <tbody>
         <tr *ngFor="let slot of emploiDuTemps">
-          <td>{{ slot.time }}</td>
-          <td *ngFor="let selection of slot.selections">
-            <div class="selection-detail">
-              <select [(ngModel)]="selection.matiere">
-                <option [ngValue]="null">Matière</option>
-                <option *ngFor="let matiere of matieres" [ngValue]="matiere">{{ matiere.nomMatiere }}</option>
-              </select>
-              <br>
-              <select [(ngModel)]="selection.salle">
-                <option [ngValue]="null">Salle</option>
-                <option *ngFor="let salle of salles" [ngValue]="salle">{{ salle.nomSalle }}</option>
-              </select>
-              <br>
-              <select [(ngModel)]="selection.enseignant">
-                <option [ngValue]="null">Enseignant</option>
-                <option *ngFor="let enseignant of enseignants" [ngValue]="enseignant">{{ enseignant.name }}</option>
-              </select>
-            </div>
+          <td class="px-4 py-2 border">{{ slot.time }}</td>
+          <td *ngFor="let selection of slot.selections" class="px-4 py-2 border">
+            <!-- Sélection des matières -->
+            <select
+              [(ngModel)]="selection.matiere"
+              class="w-full p-1 border rounded mb-2"
+            >
+              <option [ngValue]="null">-- Matière --</option>
+              <option *ngFor="let matiere of matieres" [ngValue]="matiere">
+                {{ matiere.nomMatiere }}
+              </option>
+            </select>
+
+            <!-- Sélection des enseignants -->
+            <select
+              [(ngModel)]="selection.enseignant"
+              class="w-full p-1 border rounded mb-2"
+            >
+              <option [ngValue]="null">-- Enseignant --</option>
+              <option *ngFor="let enseignant of enseignants" [ngValue]="enseignant">
+                {{ enseignant.name }}
+              </option>
+            </select>
+
+            <!-- Sélection des salles -->
+            <select
+              [(ngModel)]="selection.salle"
+              class="w-full p-1 border rounded"
+            >
+              <option [ngValue]="null">-- Salle --</option>
+              <option *ngFor="let salle of salles" [ngValue]="salle">
+                {{ salle.nomSalle }}
+              </option>
+            </select>
           </td>
         </tr>
       </tbody>
-      <ng-template #noData>
-        <tr><td colspan="6">Aucune donnée d'emploi du temps disponible.</td></tr>
-      </ng-template>
-      
     </table>
+  </div>
 
-    <!-- Button to validate and save the timetable -->
-    <button (click)="saveEmploiDuTemps()">Valider l'emploi du temps</button>
+  <!-- Bouton pour sauvegarder l'emploi du temps -->
+  <div class="mt-6">
+    <button
+      (click)="saveEmploiDuTemps()"
+      class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+    >
+      Enregistrer l'Emploi du Temps
+    </button>
   </div>
 </div>

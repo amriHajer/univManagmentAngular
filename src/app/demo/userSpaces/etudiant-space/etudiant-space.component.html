@@ -1,1 +1,91 @@
-<p>etudiant-space works!</p>
+<!-- Layout Principal -->
+<div class="flex">
+    <!-- Sidebar -->
+    <div class="sidebar w-64 h-screen bg-blue-900 text-white flex flex-col fixed rounded-r-3xl">
+      <div class="sidebar-header p-4 bg-blue-800 flex items-center justify-center rounded-r-3xl">
+        <img src="assets/images/logo.jpg" alt="Logo" class="image-logo h-12 w-12 mr-3" />
+        <h3 class="text-xl font-bold">Espace Etudiant</h3>
+      </div>
+  
+      <nav class="flex-1 p-4 space-y-4">
+        <!-- profile -->
+        <a
+          routerLink="/profileEtd"
+          routerLinkActive="active"
+          class="sidebar-link flex items-center space-x-2 hover:bg-blue-700 p-2 rounded-lg"
+        >
+          <svg
+            class="icon h-6 w-6"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+          >
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16m-7 6h7" />
+          </svg>
+          <span> Profile </span>
+        </a>
+  
+        <!-- Mes message -->
+        <div>
+          <a
+            routerLink="/message"
+            routerLinkActive="active"
+            class="sidebar-link flex items-center space-x-2 hover:bg-blue-700 p-2 rounded-lg"
+          >
+            <svg
+              class="icon h-6 w-6"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3 12h3m0 0h12m-12 0l3 3m-3-3l3-3" />
+            </svg>
+            <span>Message</span>
+          </a>
+        </div>
+  
+        <!-- Emploi du Temps -->
+        <a
+          routerLink="/emploiEtd"
+          routerLinkActive="active"
+          class="sidebar-link flex items-center space-x-2 hover:bg-blue-700 p-2 rounded-lg"
+        >
+          <svg
+            class="icon h-6 w-6"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+          >
+            <path stroke-linecap="round" stroke-linejoin="round" d="M7 7v6m6-6v6m-4 6h8a2 2 0 002-2V5a2 2 0 00-2-2h-8a2 2 0 00-2 2v14a2 2 0 00-2 2z" />
+          </svg>
+          <span>Emploi du Temps</span>
+        </a>
+  
+        <!-- Déconnexion -->
+        <a
+          routerLink="/logout"
+          class="sidebar-link flex items-center space-x-2 hover:bg-red-700 p-2 rounded-lg"
+        >
+          <svg
+            class="icon h-6 w-6"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+          >
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
+          </svg>
+          <span>Déconnexion</span>
+        </a>
+      </nav>
+    </div>
+  
+    <!-- Main Content Area -->
+    <div class="ml-64 flex-1 p-6 bg-gray-100 min-h-screen">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+  

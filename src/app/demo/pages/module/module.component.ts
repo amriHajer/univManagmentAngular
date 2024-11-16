@@ -38,13 +38,7 @@ export class ModuleComponent implements OnInit {
     this.http.get<any[]>(`${this.apiUrl}/matieres`).subscribe(data => this.matieres = data);
   }
 
-  onSpecialiteChange() {
-    if (this.module.specialite && this.module.specialite.cycle === 'Licence') {
-      this.filteredNiveaux = this.niveaux.filter(n => !n.nomNiveau.startsWith('Master'));
-    } else if (this.module.specialite && this.module.specialite.cycle === 'Master') {
-      this.filteredNiveaux = this.niveaux.filter(n => n.nomNiveau.startsWith('Master'));
-    }
-  }
+ 
 
   onMatiereChange() {
     this.matiereDetails = { coefficient: null, volumeHoraire: null };
@@ -87,4 +81,41 @@ export class ModuleComponent implements OnInit {
       }
     );
   }
+
+
+
+  /************************** */
+  onSpecialiteChange() {
+    console.log('Spécialité sélectionnée:', this.module.specialite);
+  
+    if (this.module.specialite) {
+      const cycle = this.module.specialite.cycle?.toLowerCase().trim(); // Assure une uniformité
+      console.log('Cycle détecté:', cycle);
+  
+      // Normaliser l'orthographe des niveaux pour "Licence"
+      const normalizeCycleName = (cycleName: string) => cycleName.toLowerCase().replace('license', 'licence');
+  
+      if (cycle === 'master') {
+        // Filtrer les niveaux avec "Master"
+        this.filteredNiveaux = this.niveaux.filter(niveau => 
+          normalizeCycleName(niveau.nomNiveau).includes('master')
+        );
+      } else if (cycle === 'licence') {
+        // Filtrer les niveaux avec "Licence"
+        this.filteredNiveaux = this.niveaux.filter(niveau => 
+          normalizeCycleName(niveau.nomNiveau).includes('licence')
+        );
+      } else {
+        this.filteredNiveaux = [];
+      }
+  
+      console.log('Niveaux filtrés:', this.filteredNiveaux);
+    } else {
+      this.filteredNiveaux = [];
+    }
+  }
+  
+  
+  
+  
 }

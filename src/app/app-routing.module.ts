@@ -15,6 +15,7 @@ import { ModuleComponent } from './demo/pages/module/module.component';
 import { SalleComponent } from './demo/pages/salle/salle.component';
 import { SpecialiteComponent } from './demo/pages/specialite/specialite.component';
 import { EnseignantSpaceComponent } from './demo/userSpaces/enseignant-space/enseignant-space.component';
+import { EtudiantSpaceComponent } from './demo/userSpaces/etudiant-space/etudiant-space.component';
 import { AdminComponent } from './theme/layout/admin/admin.component';
 //import { GuestComponent } from './theme/layout/guest/guest.component';
 
@@ -59,6 +60,33 @@ const routes: Routes = [
       {
         path: 'emploiEns',
         loadComponent: () => import('./demo/userSpaces/enseignant-details/emploi-enseignant/emploi-enseignant.component').then((c) => c.EmploiEnseignantComponent)
+      },
+    ]
+  },
+
+
+  /******************************************* */
+  {
+    path: '',
+    component: EtudiantSpaceComponent,
+    children: [
+      {
+        path: 'etudiantSpace',
+        redirectTo: '/message',
+        // redirectTo: '/cours',
+        pathMatch: 'full'
+      },
+      {
+        path: 'message',
+        loadComponent: () => import('./demo/userSpaces/etudiant-details/msg-entudiant/msg-entudiant.component').then((c) => c.MsgEntudiantComponent)
+      },
+      {
+        path: 'profileEtd',
+        loadComponent: () => import('./demo/userSpaces/etudiant-details/profile-etudiant/profile-etudiant.component').then((c) => c.ProfileEtudiantComponent)
+      },
+      {
+        path: 'emploiEtd',
+        loadComponent: () => import('./demo/userSpaces/etudiant-details/emploi-etudiant/emploi-etudiant.component').then((c) => c.EmploiEtudiantComponent)
       },
     ]
   },

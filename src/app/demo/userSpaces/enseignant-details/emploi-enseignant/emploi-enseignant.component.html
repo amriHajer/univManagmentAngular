@@ -1,31 +1,34 @@
-<div *ngIf="seances.length > 0; else noSeances">
-    <h2>Emploi du temps de l'enseignant</h2>
-    <table class="table-auto w-full">
-      <thead>
+<div *ngIf="user" class="profile-container">
+  <h4 class="mb-4">Emploi du temps d'enseignant(e) : {{ user.name }} -  {{ getSemestre() }}</h4>
+
+  <!-- Affichage du chargement et des erreurs -->
+  <div *ngIf="isLoading" class="alert alert-info">Chargement...</div>
+  <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+
+  <!-- Table d'emploi du temps -->
+  <div class="table-responsive" *ngIf="!isLoading && !error">
+    <table class="table table-bordered table-striped emploi-table">
+      <thead class="bg-primary text-white text-center">
         <tr>
-          <th class="px-4 py-2">Jour</th>
-          <th class="px-4 py-2">Début</th>
-          <th class="px-4 py-2">Fin</th>
-          <th class="px-4 py-2">Matière</th>
-          <th class="px-4 py-2">Classe</th>
-          <th class="px-4 py-2">Salle</th>
-          <th class="px-4 py-2">Semestre</th>
+          <th>Heures / Jours</th>
+          <th *ngFor="let jour of joursSemaine">{{ jour }}</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let seance of seances">
-          <td class="border px-4 py-2">{{ seance.jourSeance }}</td>
-          <td class="border px-4 py-2">{{ seance.debutSeance }}</td>
-          <td class="border px-4 py-2">{{ seance.finSeance }}</td>
-          <td class="border px-4 py-2">{{ seance.matiere }}</td>
-          <td class="border px-4 py-2">{{ seance.classe }}</td>
-          <td class="border px-4 py-2">{{ seance.salle }}</td>
-          <td class="border px-4 py-2">{{ seance.semestre }}</td>
+        <tr *ngFor="let heure of heures">
+          <td class="fw-bold text-center">{{ heure }}</td>
+          <td *ngFor="let jour of joursSemaine" class="text-center">
+            <div *ngIf="emploiDuTemps[jour][heure]" class="p-2 bg-light rounded-3">
+              <strong>{{ emploiDuTemps[jour][heure]?.matiere.nomMatiere }}</strong><br />
+              <small class="text-secondary">Classe: {{ emploiDuTemps[jour][heure]?.classe.nomClasse }}</small><br />
+              <small class="text-secondary">Salle: {{ emploiDuTemps[jour][heure]?.salle.nomSalle }}</small>
+            </div>
+            <div *ngIf="!emploiDuTemps[jour][heure]" class="text-muted"></div>
+
+            <!-- <div *ngIf="!emploiDuTemps[jour][heure]" class="text-muted">Pas de séance</div> -->
+          </td>
         </tr>
       </tbody>
     </table>
   </div>
-  <ng-template #noSeances>
-    <p>Aucune séance trouvée pour cet enseignant.</p>
-  </ng-template>
-  
+</div>

@@ -33,9 +33,10 @@ export class CoursComponent {
   // Charger les classes de l'enseignant depuis le backend
   loadClasses() {
     if (this.user && this.user.id) {
-      const enseignantId = this.user.id; // Utiliser l'ID de l'utilisateur connecté
-      this.http.get<any[]>(`http://localhost:8083/public/seances/enseignant/4/classes`)
-                            
+      const userId = this.user.id; // Utiliser l'ID de l'utilisateur connecté dynamiquement
+      const url = `http://localhost:8083/public/seances/enseignant/${userId}/classes`;
+  
+      this.http.get<any[]>(url)
         .subscribe(
           data => {
             this.classes = data;
@@ -49,6 +50,7 @@ export class CoursComponent {
       console.warn('Aucun utilisateur connecté trouvé.');
     }
   }
+  
 
   // Gestion du changement de fichier
   onFileChange(event: any) {
@@ -72,7 +74,7 @@ export class CoursComponent {
     const formData = new FormData();
     formData.append('contenu', this.message);
     formData.append('classeId', this.selectedClass);
-    formData.append('enseignantId', this.user.id); // ID de l'enseignant (utilisateur connecté)
+    formData.append('userId', this.user.id); // ID de l'enseignant (utilisateur connecté)
 
     if (this.selectedFile) {
       formData.append('file', this.selectedFile);

@@ -37,8 +37,35 @@
   margin: 5px 0;
 }
 
+/* Style pour les cellules avec une séance */
+.emploi-cell p {
+  font-size: 0.875rem;
+  margin: 0;
+}
+
+.emploi-cell .matiere {
+  font-weight: 700;
+  color: #1f2937;
+}
+
+.emploi-cell .enseignant {
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
 /* Style pour les cellules sans séance */
 .text-muted {
   font-style: italic;
   color: #999;
+}
+
+/* Style pour les cellules contenant des informations */
+.text-secondary {
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+/* Affichage de l'alerte de chargement ou d'erreur */
+.alert {
+  margin-top: 20px;
 }

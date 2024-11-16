@@ -1,8 +1,25 @@
-.custom-header {
-    background-color: #dee5e7; /* Bleu clair */
-    color: #333333; /* Texte gris foncé */
-    padding: 15px;
-    font-size: 18px;
-    border-radius: 5px;
-    text-align: center;
-  }
+/* Personnalisation du header */
+
+
+/* Personnalisation du select */
+.custom-select {
+  -webkit-appearance: none; /* Supprimer l'apparence par défaut */
+  -moz-appearance: none;
+  appearance: none;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path fill="currentColor" d="M2 2l3 3-3 3"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 12px 12px;
+  padding-right: 2rem; /* Ajouter de l'espace pour la flèche */
+}
+
+/* Personnalisation de la liste des matières */
+.list-group-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.list-group-item button {
+  margin-left: 10px;
+}

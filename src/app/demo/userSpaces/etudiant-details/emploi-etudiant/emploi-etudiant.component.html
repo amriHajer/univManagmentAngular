@@ -1,0 +1,73 @@
+<div class="profile-container">
+    <!-- Titre avec le nom de l'étudiant et sa classe -->
+    <h4 class="mb-4">
+      Emploi du temps de :  {{ nomClasse }}
+    </h4>
+  
+    <!-- Tableau de l'emploi du temps -->
+    <div class="table-responsive">
+      <table class="table table-bordered table-striped emploi-table">
+        <thead class="bg-primary text-white text-center">
+          <tr>
+            <!-- Première colonne pour les heures -->
+            <th class="px-4 py-2 border border-gray-300 bg-gray-100 text-left">
+              Heure / Jour
+            </th>
+            <!-- Colonnes pour les jours de la semaine -->
+            <th
+              *ngFor="let jour of joursSemaine"
+              class="px-4 py-2 border border-gray-300 bg-gray-100 text-center"
+            >
+              {{ jour }}
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Lignes pour chaque créneau horaire -->
+          <tr *ngFor="let heure of heures">
+            <!-- Colonne avec l'heure -->
+            <td class="px-4 py-2 border border-gray-300 bg-gray-50 font-medium">
+              {{ heure }}
+            </td>
+  
+            <!-- Colonnes pour chaque jour de la semaine -->
+            <td
+              *ngFor="let jour of joursSemaine"
+              class="fw-bold text-center"
+            >
+              <!-- Affichage des séances pour le jour et l'heure courants -->
+              <ng-container *ngIf="getSeancePourJourEtHeure(jour, heure) as seance" class="p-2 bg-light rounded-3">
+                <strong> <div class="text-sm font-semibold">{{ seance.matiere.nomMatiere }}</div></strong>
+                <div class="text-xs text-gray-600">Salle: {{ seance.salle.nomSalle }}</div>
+                <div class="text-xs text-gray-600">Prof: {{ seance.enseignant.name }}</div>
+              </ng-container>
+  
+              <!-- Si aucune séance n'est trouvée -->
+              <ng-container *ngIf="!getSeancePourJourEtHeure(jour, heure)">
+                <span class="text-gray-400"></span>
+              </ng-container>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+    <!-- Message si aucun emploi du temps n'est disponible -->
+    <div *ngIf="emploiDuTemps.length === 0" class="mt-8 text-center text-gray-500">
+      Aucun emploi du temps disponible pour cette classe.
+    </div>
+  </div>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  

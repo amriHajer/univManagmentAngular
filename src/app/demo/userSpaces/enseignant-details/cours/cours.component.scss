@@ -1,122 +1,60 @@
-// .sidebar {
-//     background-color: #1e3a8a;
-//     color: white;
-  
-//     .sidebar-link {
-//       color: white;
-//       text-decoration: none;
-//       padding: 12px;
-//       border-radius: 8px;
-//       transition: background-color 0.3s;
-  
-//       &:hover {
-//         background-color: #2563eb;
-//       }
-  
-//       &.active {
-//         background-color: #3b82f6;
-//       }
-//     }
-  
-//     .sidebar-header {
-//       display: flex;
-//       align-items: center;
-//       justify-content: center;
-//       background-color: #1e40af;
-//       border-radius: 10px;
-//       padding: 16px;
-//     }
-  
-//     .icon {
-//       width: 20px;
-//       height: 20px;
-//     }
-//   }
-  
-  .message-area {
-    .form {
-      max-width: 600px;
-      margin: 0 auto;
-  
-      .form-group {
-        margin-bottom: 20px;
-  
-        label {
-          display: block;
-          font-weight: bold;
-        }
-  
-        .form-control {
-          width: 100%;
-          padding: 10px;
-          border-radius: 8px;
-          border: 1px solid #ccc;
-          margin-top: 8px;
-        }
-      }
-  
-      button {
-        background-color: #3b82f6;
-        border: none;
-        padding: 12px 24px;
-        color: white;
-        border-radius: 8px;
-        cursor: pointer;
-  
-        &:hover {
-          background-color: #2563eb;
-        }
-      }
-    }
-  }
-  
-  // Variables
-$sidebar-bg-color: #2e4994;
-$link-hover-color: #cb82ec;
-
-// Sidebar Styles
-.sidebar {
-  width: 16rem;
-  background-color: $sidebar-bg-color;
-  color: white;
-  min-height: 100vh;
-  border-top-right-radius: 1.5rem;
-  border-bottom-right-radius: 1.5rem;
-
-  .sidebar-header {
-    background-color: darken($sidebar-bg-color, 10%);
-    text-align: center;
-    padding: 1rem;
-    border-top-right-radius: 1.5rem;
-  }
-
-  .sidebar-link {
-    display: flex;
-    align-items: center;
-    padding: 0.75rem 1rem;
-    border-radius: 0.5rem;
-    transition: background-color 0.3s, color 0.3s;
-
-    &:hover {
-      background-color: lighten($sidebar-bg-color, 15%);
-      color: $link-hover-color;
-    }
-
-    .icon {
-      width: 1.5rem;
-      height: 1.5rem;
-      margin-right: 0.5rem;
-    }
-  }
+.profile-container {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+.profile-title {
+  color: #007bff;
+  margin-bottom: 20px;
+}
 
+.profile-image {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 15px;
+}
 
-.image-logo {
-    width: 100px;  /* Ajuste la largeur à ta convenance */
-    height: 100px; /* Ajuste la hauteur à ta convenance */
-    border-radius: 50%; /* Pour un avatar circulaire */
-    object-fit: cover; /* Pour garder les proportions de l'image */
-  }
-  
-  
+.form-label {
+  font-weight: bold;
+  text-align: left;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.form-select,
+.form-control {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #e0e0e0;
+  margin-bottom: 15px;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+  border-color: #004085;
+}
+
+.btn-lg {
+  padding: 10px 20px;
+  font-size: 1.2rem;
+}
